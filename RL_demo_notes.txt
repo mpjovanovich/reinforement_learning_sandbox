@@ -1,0 +1,54 @@
+
+Critics outside of the CogSci domain did not understand the problem. Need to reframe in terms of a much more simple task -
+
+"Naive nTL":
+
+One ATR per goal state.
+	Instead of grouping "tasks" along a dimension as in the previous work, we just assume no relationship among goal states.
+Don't need the complicated mess for the internal critic function - 
+	we just switch tasks whenever we hit a goal state and there is no reward.
+	keep iterating through Q functions (basically a dictionary mapping goal state with policy (Q NN)), swapping when we hit goal states and no reward
+
+Alternating maze: Grid search. Try to reach reward as fast as possible.
+
+There is a reward in the maze that periodically moves to one of three locations.
+
+Phase 1:
+	Simple grid search. Target doesn't move.
+	Don't bother with HRRs. Use a vector to encode locations (just number the grid tiles, 1 to n).
+	Use a function to transform matrix location to vector location. This will simplify and make more intuitive the syntax to encode and access vector locations.
+	Do TD learning, Q, and SARSA (parameterize). Need to refresh memory.
+		https://towardsdatascience.com/simple-reinforcement-learning-q-learning-fcddc4b6fe56
+		Looks like Q learning is the way to go. SARSA is mostly the same, but a little more conservative.
+	
+Phase 2:
+	nTL - could be in one of the locations described above.
+
+Phase 3:
+	Add pursuer as a subtask. Pursuer moves in a random direction every turn.
+
+Parameterize the three phases.
+Compare against "normal" TD learning (perseveration).
+Possibly try to get another publication if we can add some functionality to this.
+
+
+Domains:
+	multitasking
+	task switching
+	learning retention
+	
+_____________________________
+
+NEW FUNCTIONALITY:
+	How does this compare with existing mutitasking approaches? Is the ability to solve with a lack of contextual clues (e.g. not a "contextual bandit" problem") novel enough to call this novel research?
+	Is there a way to get it to learn the tasks without keeping the target in one spot for several trials in a row?
+	In theory, the naive approach should be able to.
+	Don't try this to begin with - just keep the target in one spot for ten trials at a time, and then alternate.
+
+_____________________________
+	
+	
+Can't remember - 
+	How is Q function usually implemented?
+	What's the difference between Q learning and SARSA
+	
